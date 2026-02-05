@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
 import { Wallet, TrendingUp, TrendingDown } from 'lucide-react';
 
@@ -17,31 +17,21 @@ export default function Dashboard() {
     fetchSummary();
   }, []);
 
-  const format = (v: number) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(v);
+  const format = (v: number) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(v);
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-slate-800">Ringkasan Keuangan</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white p-6 rounded-2xl shadow-sm border-b-4 border-blue-500">
-          <div className="flex justify-between items-start mb-4">
-            <span className="text-slate-500 font-medium">Total Saldo</span>
-            <Wallet className="text-blue-500" />
-          </div>
+          <div className="flex justify-between items-start mb-4"><span className="text-slate-500 font-medium">Saldo</span><Wallet className="text-blue-500" /></div>
           <p className="text-2xl font-black text-slate-900">{format(data.balance)}</p>
         </div>
         <div className="bg-white p-6 rounded-2xl shadow-sm border-b-4 border-green-500">
-          <div className="flex justify-between items-start mb-4">
-            <span className="text-slate-500 font-medium">Pemasukan</span>
-            <TrendingUp className="text-green-500" />
-          </div>
+          <div className="flex justify-between items-start mb-4"><span className="text-slate-500 font-medium">Pemasukan</span><TrendingUp className="text-green-500" /></div>
           <p className="text-2xl font-black text-green-600">{format(data.in)}</p>
         </div>
         <div className="bg-white p-6 rounded-2xl shadow-sm border-b-4 border-red-500">
-          <div className="flex justify-between items-start mb-4">
-            <span className="text-slate-500 font-medium">Pengeluaran</span>
-            <TrendingDown className="text-red-500" />
-          </div>
+          <div className="flex justify-between items-start mb-4"><span className="text-slate-500 font-medium">Pengeluaran</span><TrendingDown className="text-red-500" /></div>
           <p className="text-2xl font-black text-red-600">{format(data.out)}</p>
         </div>
       </div>
